@@ -1,4 +1,4 @@
-function [xaxis, waveform] = plot_channel(obj, channelN, figN, half)
+function [xaxis, waveform] = extract_channel_2(obj, channelN, half)
 
 % This function is used to extract and plot the data from the oscilloscope.
 % OBJ is the interface object for the oscilloscope, CHANNELN is the channel
@@ -9,28 +9,28 @@ function [xaxis, waveform] = plot_channel(obj, channelN, figN, half)
     str = ':waveform:source ' + channel;
     fwrite(obj, str) % selects the desired channel as source
     fwrite(obj, 'waveform:format ascii') % the data are in ASCII format
-%     str = 'digitize ' + channel;
-%     fwrite(obj, str) %the digitize command has been removed since no data
-%     can be plotted when they are not triggered
+    %     str = 'digitize ' + channel;
+    %     fwrite(obj, str) %the digitize command has been removed since no data
+    %     can be plotted when they are not triggered
+    tic
     q=query(obj, 'waveform:data?'); % queries the oscilloscope's data
-
+    toc
     % Nbits = str2num(q(3:10)); %for some reason, the length of q does not match that value
     Nbits = length(q)-10;
-    Npoints = Nbits*36/513; %the factor 36/513 was found empirically seeing that with an InputBufferSize of 513 elements, i got a q string of 36 points
+    Npoints = Nbits/14; %the factor 36/513 was found empirically seeing that with an InputBufferSize of 513 elements, i got a q string of 36 points
     waveform = [];
     k = 11;
     for i = 1:Npoints %for cycle to extract the data from the output string
         waveform(i) = str2num(q(k:k+12));
         k = k+14;
     end
-    
+
     xaxis = 1:Npoints;
+%     length(xaxis)
     xaxis = xaxis*str2num(query(obj, 'waveform:xincrement?')); %x-axis vector, scaled with the  oscilloscope's x-axis increment
     if half == 1
         waveform = waveform(ceil(length(xaxis)/2):end);
         xaxis = 1:length(waveform);
         xaxis = xaxis*str2num(query(obj, 'waveform:xincrement?')); %x-axis vector, scaled with the  oscilloscope's x-axis increment
     end
-    figure(figN)
-    plot(xaxis,waveform)
 end

@@ -1,4 +1,4 @@
-function [xaxis, waveform] = plot_channel(obj, channelN, figN, half)
+function [xaxis, waveform] = extract_channel(obj, channelN, figN, half)
 
 % This function is used to extract and plot the data from the oscilloscope.
 % OBJ is the interface object for the oscilloscope, CHANNELN is the channel
@@ -9,10 +9,10 @@ function [xaxis, waveform] = plot_channel(obj, channelN, figN, half)
     str = ':waveform:source ' + channel;
     fwrite(obj, str) % selects the desired channel as source
     fwrite(obj, 'waveform:format ascii') % the data are in ASCII format
-%     str = 'digitize ' + channel;
-%     fwrite(obj, str) %the digitize command has been removed since no data
-%     can be plotted when they are not triggered
-    q=query(obj, 'waveform:data?'); % queries the oscilloscope's data
+    %     str = 'digitize ' + channel;
+    %     fwrite(obj, str) %the digitize command has been removed since no data
+    %     can be plotted when they are not triggered
+    q=query(obj, 'waveform:data?') % queries the oscilloscope's data
 
     % Nbits = str2num(q(3:10)); %for some reason, the length of q does not match that value
     Nbits = length(q)-10;
@@ -23,14 +23,13 @@ function [xaxis, waveform] = plot_channel(obj, channelN, figN, half)
         waveform(i) = str2num(q(k:k+12));
         k = k+14;
     end
-    
+
     xaxis = 1:Npoints;
     xaxis = xaxis*str2num(query(obj, 'waveform:xincrement?')); %x-axis vector, scaled with the  oscilloscope's x-axis increment
     if half == 1
+        ceil(length(xaxis)/2)
         waveform = waveform(ceil(length(xaxis)/2):end);
         xaxis = 1:length(waveform);
         xaxis = xaxis*str2num(query(obj, 'waveform:xincrement?')); %x-axis vector, scaled with the  oscilloscope's x-axis increment
     end
-    figure(figN)
-    plot(xaxis,waveform)
 end
