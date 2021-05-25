@@ -11,5 +11,6 @@ function [points] = randomWf(N)
         end
         
     end
+    fprintf(strcat("Random sequence:",num2str(points),"\n"))
 end
         
