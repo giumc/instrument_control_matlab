@@ -1,15 +1,19 @@
-function wout=DCFsweep(obj, freq, pow, ch, varargin)
-% function [diff] = EHFsweep(obj, freq, pow, ch, varargin)
+function wout=DCPsweep(obj, freq, pow, ch, varargin)
+
 % This functions allows to make a frequency sweep for the energy harvester
 % (EH) testing. FREQ is a vector with the frequencies of the sweep, POW is
 % the power in dBm, ch is a vector with the oscilloscope's channels to record
 % if varargin is passed, it has to be an function to apply to signals.
-    obj.osc.setTimeScale(obj.EHtimeScale)
-    obj.tek.setPower(pow)
 
-    for i = 1:length(freq)
+    obj.osc.setTimeScale(obj.EHtimeScale)
+    
+    obj.tek.setFreq(freq)
+    
+    obj.osc.setBWLimit(ch)
+    
+    for i = 1:length(pow)
         
-        obj.tek.setFreq(freq(i))
+        obj.tek.setPower(pow(i))
         
         for j=1:length(ch)
 
@@ -25,7 +29,7 @@ function wout=DCFsweep(obj, freq, pow, ch, varargin)
 
         fun=varargin{1};
 
-        for i=1:length(freq)
+        for i=1:length(pow)
            
             wout(i)=feval(fun,arrayfun(@(x) med(x,i),ch));
 
@@ -37,8 +41,8 @@ function wout=DCFsweep(obj, freq, pow, ch, varargin)
         
     end
 
-    plot(freq/1e6, wout*1e3)
-
-    graphEditing('Voltage across the capacitor vs. frequency', 'Frequency, [MHz]', 'Voltage, [mV]')
+%     plot(pow, wout*1e3)
+% 
+%     graphEditing('Voltage across the capacitor vs. power', 'Power, [dBm]', 'Voltage, [mV]')
 
 end

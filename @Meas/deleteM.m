@@ -1,4 +1,4 @@
-function closeM(obj)
+function deleteM(obj)
 
 %Closes and deletes the interface objects.
     fclose(obj.osc.interfObj);
@@ -7,4 +7,5 @@ function closeM(obj)
     delete(obj.tek.interfObj);
     fclose(obj.mod.interfObj);
     delete(obj.mod.interfObj);
+    delete(obj);
 end

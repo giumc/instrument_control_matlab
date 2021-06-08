@@ -1,4 +1,4 @@
-function [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, chComp)
+function [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType)
 
     obj.tek.setPower(pow)
     fwrite(obj.osc.interfObj, ':TIMebase:REFerence custom')
@@ -27,6 +27,7 @@ function [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, ch
                 end
             end
             
+            switch
             if sum(err) ~= 0
                 symbErr = 1;
             else

@@ -28,6 +28,8 @@ classdef Osc < matlab.mixin.Copyable & handle
         extTrig(obj)
         
         setTrigger(obj, tSweep, triggerLevel, channelN)
+        
+        setBWLimit(obj, ch)
 
     end
    

@@ -1,13 +1,13 @@
-function [errMean, errVar] = WURXerrRatevsP(obj, freq, pow, Nbit, Nit, freqM, chComp)
+function [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType)
 
-    obj.tek.setFreq(freq)
+    obj.tek.setPower(pow)
     fwrite(obj.osc.interfObj, ':TIMebase:REFerence custom')
     scale = Nbit/freqM/10;
     obj.osc.setTimeScale(scale)
 
-    for j = 1:length(pow)
+    for j = 1:length(freq)
 
-        obj.tek.setPower(pow(j));
+        obj.tek.setFreq(freq(j));
 
         for k = 1:Nit
 
@@ -27,12 +27,18 @@ function [errMean, errVar] = WURXerrRatevsP(obj, freq, pow, Nbit, Nit, freqM, ch
                 end
             end
             
-            if sum(err) ~= 0
-                symbErr = 1;
-            else
-                symbErr = 0;
+            switch errorType
+                case 'packet'
+                    if sum(err) ~= 0
+                        symbErr = 1;
+                    else
+                        symbErr = 0;
+                    end
+                    errV(k, j) = symbErr;
+                case 'bit'
+                    errV(k,j) = err;
+                 
             end
-            errV(k, j) = symbErr;
             
         end
         

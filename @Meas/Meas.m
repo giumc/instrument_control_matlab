@@ -1,4 +1,4 @@
-classdef Measurement < matlab.mixin.Copyable & handle
+classdef Meas < matlab.mixin.Copyable & handle
     
     properties
         
@@ -16,21 +16,32 @@ classdef Measurement < matlab.mixin.Copyable & handle
      
     methods
         
-        diff = DCFsweep(obj, freq, pow, chP, chN)
-
+        wout = DCFsweep(obj, freq, pow, chP, chN)
+        
+        wout = DCPsweep(obj, freq, pow, ch, varargin)
+        
         diff = EHPsweep(obj, freq, pow, chP, chN)
         
         setUpM(obj, freqM, points)
         
-        [errMean, errVar] = WURXerrRatevsP(obj, freq, pow, Nbit, Nit, freqM, chComp)       
+        [errMean, errVar] = WURXerrRatevsP(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType,varargin)       
         
-        [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, chComp)
+        [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType,varargin)
         
-        closeM(obj)
+        deleteM(obj)
+        
+            
+
         
         function diff=Diff_FSweep(obj,freq,pow,ch)
             
-            diff=obj.DCFSweep(freq,pow,ch,@(x) x(ch(1))-x(ch(2)));
+            diff=obj.DCFsweep(freq,pow,ch,@(x) x(ch(1))-x(ch(2)));
+            
+        end
+            
+        function diff=Diff_PSweep(obj,freq,pow,ch)
+            
+            diff=obj.DCPsweep(freq,pow,ch,@(x) x(ch(1))-x(ch(2)));
             
             end
          
@@ -38,7 +49,7 @@ classdef Measurement < matlab.mixin.Copyable & handle
    
     methods  % Constructors
         
-        function obj = Measurement(osc, sg, mod)
+        function obj = Meas(osc, sg, mod)
             % IP is a string with the IP address
             
             if nargin == 0
