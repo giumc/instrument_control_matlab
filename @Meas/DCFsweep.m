@@ -6,7 +6,7 @@ function wout=DCFsweep(obj, freq, pow, ch, varargin)
 % if varargin is passed, it has to be an function to apply to signals.
 
     obj.osc.setTimeScale(obj.EHtimeScale)
-    
+    fwrite(obj.osc.interfObj, 'run')
     obj.tek.setPower(pow)
     
     obj.osc.setBWLimit(ch)

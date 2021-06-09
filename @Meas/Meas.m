@@ -24,9 +24,9 @@ classdef Meas < matlab.mixin.Copyable & handle
         
         setUpM(obj, freqM, points)
         
-        [errMean, errVar] = WURXerrRatevsP(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType,varargin)       
+        [errMean, errVar] = WURXerrRatevsP(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType)       
         
-        [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType,varargin)
+        [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType)
         
         deleteM(obj)
         
@@ -35,13 +35,7 @@ classdef Meas < matlab.mixin.Copyable & handle
         
         function diff=Diff_FSweep(obj,freq,pow,ch)
             
-            diff=obj.DCFsweep(freq,pow,ch,@(x) x(ch(1))-x(ch(2)));
-            
-        end
-            
-        function diff=Diff_PSweep(obj,freq,pow,ch)
-            
-            diff=obj.DCPsweep(freq,pow,ch,@(x) x(ch(1))-x(ch(2)));
+            diff=obj.DCFSweep(freq,pow,ch,@(x) x(ch(1))-x(ch(2)));
             
             end
          
@@ -52,6 +46,15 @@ classdef Meas < matlab.mixin.Copyable & handle
         function obj = Meas(osc, sg, mod)
             % IP is a string with the IP address
             
+            if nargin == 1
+                
+                if osc == 1
+                    
+                    return
+                    
+                end
+                
+            end
             if nargin == 0
                 IPosc = input('Insert oscilloscope IP --> ');
                 obj.osc = Osc(IPosc);
