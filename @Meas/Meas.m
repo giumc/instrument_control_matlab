@@ -24,14 +24,14 @@ classdef Meas < matlab.mixin.Copyable & handle
         
         setUpM(obj, freqM, points)
         
-        [errMean, errVar] = WURXerrRatevsP(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType)       
+        str=WURX_acquire_data(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType,varargin)       
         
-        [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType)
+        WURX_calc_error()
+        
+        [errMean, errVar] = WURXerrRatevsF(obj, freq, pow, Nbit, Nit, freqM, chComp, errorType,varargin)
         
         deleteM(obj)
         
-            
-
         
         function diff=Diff_FSweep(obj,freq,pow,ch)
             
