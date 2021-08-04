@@ -35,7 +35,7 @@ classdef Meas < matlab.mixin.Copyable & handle
         
         function diff=Diff_FSweep(obj,freq,pow,ch)
             
-            diff=obj.DCFSweep(freq,pow,ch,@(x) x(ch(1))-x(ch(2)));
+            diff=obj.DCFsweep(freq,pow,ch,@(x) x(ch(1))-x(ch(2)));
             
             end
          

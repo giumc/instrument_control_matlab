@@ -1,4 +1,4 @@
-function [errMean,errVar]=WURX_calc_error(xComp,)
+function [errMean,errVar]=WURX_calc_error()
 
         err = 0;
 
