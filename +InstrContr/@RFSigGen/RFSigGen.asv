@@ -1,0 +1,28 @@
+classdef RFSigGen < InstrContr.Instrument
+    
+    methods
+        
+        ModOff(obj)
+
+        ModOn(obj)
+
+        setFreq(obj, freq)
+
+        setPower(obj, pow)
+
+        modulate(obj, modType, modWf, rate, depthOrDev)
+        
+    
+    end
+
+    methods  % Constructors
+        
+        function obj = RFSigGen(varargin)
+           
+            obj=obj@InstrContr.Instrument(varargin{1});
+            
+            obj.intere
+    end
+    
+end
+
