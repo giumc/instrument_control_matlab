@@ -14,9 +14,9 @@ classdef RFSigGen < InstrContr.Instrument
 
         ModOn(obj)
 
-        setFreq(obj, freq)
+        setRfFreq(obj, freq)
 
-        setPower(obj, pow)
+        setRfPower(obj, pow)
 
         modulate(obj, modType, modWf, rate, depthOrDev)
         
@@ -29,8 +29,22 @@ classdef RFSigGen < InstrContr.Instrument
            
             obj=obj@InstrContr.Instrument(varargin{1});
    
-            disp(fprintf('RFSigGen :\n %s',query(obj.interfObj, '*IDN?')))
-
+            disp(fprintf('RFSigGen :\n %s',obj.id))
+            
+            obj.stop;
+            
+        end
+        
+    end
+    
+    methods % Oneliners
+    
+        function start(obj)
+            set(obj.interfObj,'ENBR1')
+        end
+        
+        function stOP(obj)
+            set(obj.interfObj,'ENBR0')
         end
         
     end

@@ -13,8 +13,7 @@ classdef Measurement < handle
         EHtimeScale = 100e-9;
         
     end
-
-     
+   
     methods
         
         wout = DCFsweep(obj, freq, pow, chP, chN)
@@ -41,7 +40,7 @@ classdef Measurement < handle
          
     end
    
-    methods  % Constructors
+    methods  % Constructor
 
         function set_oscilloscope(obj,instr)
             

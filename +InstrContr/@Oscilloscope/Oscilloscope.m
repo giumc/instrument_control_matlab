@@ -40,7 +40,7 @@ classdef Oscilloscope < InstrContr.Instrument
           
             obj=obj@InstrContr.Instrument(varargin{:});
             
-            disp(fprintf('Oscilloscope :\n %s',query(obj.interfObj, '*IDN?')))
+            disp(fprintf('Oscilloscope :\n %s',obj.id))
             %very high input buffer size to be able to collect more data
    
             fwrite(obj.interfObj, 'waveform:format ascii') % the data are in ASCII format

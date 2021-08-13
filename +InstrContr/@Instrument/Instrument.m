@@ -62,10 +62,8 @@ classdef Instrument < matlab.mixin.Copyable & handle
             
         end
         
-        function who_is(obj)
-            
-            query(obj.interfObj,'*IDN?');
-            
+        function y=id(obj)
+            y=query(obj.interfObj,'*IDN?');
         end
     end
     
