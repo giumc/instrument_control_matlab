@@ -2,9 +2,15 @@ classdef Oscilloscope < InstrContr.Instrument
         
     properties (Access=protected)
         
-        input_buffer_size = 1e3;
+        input_buffer_size = 1e6;
         
-        output_buffer_size = 2^9;
+        output_buffer_size = 5^9;
+        
+    end
+    
+    properties
+        
+        points=2500;
         
     end
 
@@ -27,10 +33,7 @@ classdef Oscilloscope < InstrContr.Instrument
             obj=obj@InstrContr.Instrument(varargin{:});
             
             disp(fprintf('Oscilloscope :\n %s',obj.id))
-            %very high input buffer size to be able to collect more data
-   
-            obj.setPoints(1000);
-           
+            
         end
     
     end
@@ -39,13 +42,13 @@ classdef Oscilloscope < InstrContr.Instrument
     
         function setAutoScale(obj)
             
-            obj.set('autoscale')
+            obj.set('autoscale:channels''all')
             
         end
         
         function setTimeScale(obj, scale)
 
-            obj.set('timebase:scale ',scale);
+            obj.set(':timebase:scale',scale);
 
         end
         

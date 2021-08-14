@@ -5,7 +5,13 @@ function y=get(obj,command,varargin)
         command=[command,'?'];
 
     end
-
-    y=query(obj.interfObj,command,varargin{:});
-
+    
+    [y,~,msg]=query(obj.interfObj,command,varargin{:});
+     
+    if ~isempty(msg)
+        
+        error("query of ""%s"" has returned an error :\n %s",command,msg);
+        
+    end
+       
 end

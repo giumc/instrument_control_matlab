@@ -60,7 +60,9 @@ classdef Instrument < matlab.mixin.Copyable & handle
            
             obj.interfObj=instr_obj;
             
-            obj.interfObj.Timeout=2;
+            obj.interfObj.Timeout=0.5;
+            
+            obj.reset;
             
         end
     
@@ -75,9 +77,16 @@ classdef Instrument < matlab.mixin.Copyable & handle
         function y=id(obj)
         
             
-            y=obj.get('*IDN');
+            y=obj.get('*IDN?');
             
         end 
+         
+        function reset(obj)
+            
+            obj.set('system:preset');
+            
+        end
+       
         
     end
     

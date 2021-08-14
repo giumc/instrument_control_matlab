@@ -12,21 +12,21 @@ function set(obj,comm,varargin)
         
         if ~(ischar(varargin{1}))
 
-            value=char(varargin{1});
+            value=num2str(varargin{1});
 
         end
 
         fwrite(obj.interfObj,[comm,' ',value]);
         
         ret=obj.get(comm);
-        
-        msgerr=strcat(...
-            sprintf('you requested to set %s as %s,\n', comm,value),...
-            sprintf('the instrument returned %s',ret));
             
         if isfloat(str2double(value))
+            
+            msgerr=strcat(...
+                sprintf('you requested to set %s as %.2e,\n',comm,str2double(value)),...
+                sprintf('the instrument returned %.2e',str2double(ret)));
 
-            if abs((ret-str2double(value))/ret)>0.01
+            if abs((str2double(ret)-str2double(value))/str2double(ret))>0.01
 
                 error(msgerr);
 
@@ -36,7 +36,11 @@ function set(obj,comm,varargin)
             
             if ischar(value)
                 
-                if ~strcmpi(sprintf([value,'\n']),obj.get(comm))
+                if ~strcmpi(sprintf([value,'\n']),ret)
+                    
+                    msgerr=strcat(...
+                        sprintf('you requested to set %s as %s,\n',comm,value),...
+                        sprintf('the instrument returned %s',ret));
                     
                     error(msgerr);
                     

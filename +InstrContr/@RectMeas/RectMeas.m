@@ -32,7 +32,6 @@ classdef RectMeas < handle
             
             fclose(obj.rf_sig_gen.interfObj);
             
-
         end
         
     end

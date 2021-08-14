@@ -50,7 +50,7 @@ classdef RFSigGen < InstrContr.Instrument
         
         function setRfPower(obj,p)
             
-            obj.set('POW',p);
+            obj.set('AMPR',p);
             
         end
         
