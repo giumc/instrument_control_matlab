@@ -47,6 +47,8 @@ classdef Oscilloscope < InstrContr.Instrument
 
             obj.set('timebase:scale ',scale);
 
+            obj.scale=obj.getScale;
+
         end
         
         function setExtTrig(obj)

@@ -22,11 +22,7 @@ function outcome=runExperiment(obj, freq, pow, ch)
             
             p=pow(i);
             
-            InstrContr.dispstat(...
-                strcat(...
-                    sprintf("Freq set to %.3e MHz",f/1e6),...
-                    sprintf("Power set to %.3e dBm",p)));
-                
+            InstrContr.dispstat(sprintf("Freq set to %.3e"
             period=1/f;
 
             osc.setTimeScale(period/2);
@@ -55,11 +51,15 @@ function outcome=runExperiment(obj, freq, pow, ch)
             outcome(i,j).freq=f;
             
             outcome(i,j).power=p;
-         
+            
+            fprintf(repmat('\b',1,msg));
+            
         end
 
     end
-  
+    
+    fprintf(repmat('\b',1,msg_main));
+    
     obj.outcome=outcome;
     
 end

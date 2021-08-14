@@ -11,18 +11,30 @@ function [xaxis, waveform] = getChannel(obj, channelN)
         
         scale=obj.getScale;
         
-        fprintf(obj.interfObj,'waveform:data?');
-        
         if strcmpi(obj.get(':waveform:unsigned'),sprintf('1\n'))
             
-            data=binblockread(obj.interfObj,'uint8');
+            data=filter_data_channel(obj.get(':waveform:data'),'%c','%u');
             
         else
             
-            data=binblockread(obj.interfObj,'int8');
-           
+            data=filter_data_channel(obj.get(':waveform:data'),'%c','%u');
+        
+            keyboard
+        
         end
         
     end
+    
+    
+    function data=filter_data_channel(data)
+        
+        data=data(2:end);
+        
+        nbits=data(1);
+        
+        data=data(2+nbits:end);
+        
+    end
+    
     
 end

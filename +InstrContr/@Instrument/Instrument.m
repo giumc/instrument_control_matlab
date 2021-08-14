@@ -60,11 +60,25 @@ classdef Instrument < matlab.mixin.Copyable & handle
            
             obj.interfObj=instr_obj;
             
+            obj.interfObj.Timeout=2;
+            
         end
+    
+        y=get(obj,comm,varargin)
         
+        set(obj,comm,varargin)
+            
+    end
+    
+    methods %One liners
+       
         function y=id(obj)
-            y=query(obj.interfObj,'*IDN?');
-        end
+        
+            
+            y=obj.get('*IDN');
+            
+        end 
+        
     end
     
 end

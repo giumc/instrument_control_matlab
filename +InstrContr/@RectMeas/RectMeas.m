@@ -1,6 +1,6 @@
 classdef RectMeas < handle
     
-    properties
+    properties (SetAccess=protected)
         
         osc
         
@@ -18,9 +18,9 @@ classdef RectMeas < handle
     
     methods
         
-        data = runExperiment(obj, freq, pow, chP, chN)
+        data = runExperiment(obj, freq, pow,ch)
         
-        data = extractAverage(obj);
+        data = extractAverage(obj)
          
     end
    
@@ -29,9 +29,9 @@ classdef RectMeas < handle
         function delete(obj)
             
             fclose(obj.osc.interfObj);
-            delete(obj.osc.interfObj);
+            
             fclose(obj.rf_sig_gen.interfObj);
-            delete(obj.rf_sig_gen.interfObj);
+            
 
         end
         
@@ -47,7 +47,7 @@ classdef RectMeas < handle
         
         function set_rf_sig_gen(obj,instr)
            
-            obj.sig_gen=instr;
+            obj.rf_sig_gen=instr;
             
         end
         

@@ -14,13 +14,8 @@ classdef RFSigGen < InstrContr.Instrument
 
         ModOn(obj)
 
-        setRfFreq(obj, freq)
-
-        setRfPower(obj, pow)
-
         modulate(obj, modType, modWf, rate, depthOrDev)
         
-    
     end
 
     methods  % Constructors
@@ -40,11 +35,23 @@ classdef RFSigGen < InstrContr.Instrument
     methods % Oneliners
     
         function start(obj)
-            set(obj.interfObj,'ENBR1')
+            fwrite(obj.interfObj,'ENBR1')
         end
         
-        function stOP(obj)
-            set(obj.interfObj,'ENBR0')
+        function stop(obj)
+            fwrite(obj.interfObj,'ENBR0')
+        end
+        
+        function setRfFreq(obj,f)
+            
+            obj.set('FREQ',f);
+            
+        end
+        
+        function setRfPower(obj,p)
+            
+            obj.set('POW',p);
+            
         end
         
     end
