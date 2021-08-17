@@ -11,16 +11,16 @@ classdef RectMeas < handle
     properties (Access=protected)
        
         outcome;
-        
-        averaged_outcome;
-        
+
     end
     
     methods
         
-        data = runExperiment(obj, freq, pow,ch)
+        fig = plotResult(obj,field,varargin)
         
-        data = extractAverage(obj)
+        data = runDiffPowExperiment(obj,f,p,varargin)
+        
+        data = runSEPowExperiment(obj,f,p,varargin)
          
     end
    
@@ -49,6 +49,34 @@ classdef RectMeas < handle
             obj.rf_sig_gen=instr;
             
         end
+        
+    end
+    
+    methods (Access=protected)
+        
+        data = collectData(obj, freq, pow,ch,varargin)
+        
+        data = calcChannel(obj,fields_in,fun,field_out)
+        
+        data = calcAverage(obj)
+        
+        data = calcAverageDifference(obj)
+        
+        data = calcChPower(obj,r)
+        
+        data = calcData(obj,field_in,fun,field_out)
+        
+    end
+    
+    methods (Access=protected,Static)
+        
+        out=channel_function_sweep(data_in,fun);
+        
+        out=data_function_sweep(data_in,fun);
+
+        out=function_sweep(data_in,fun);
+        
+        plotChannelData(ax,ch);
         
     end
     

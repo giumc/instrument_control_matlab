@@ -13,5 +13,11 @@ function y=get(obj,command,varargin)
         error("query of ""%s"" has returned an error :\n %s",command,msg);
         
     end
+    
+    if ~isnan(str2double(y))
+        
+        y=str2double(y);
+        
+    end
        
 end

@@ -1,4 +1,4 @@
-function scale=getScale(obj)
+function scale=getPreamble(obj)
     
     interface=obj.interfObj;
     

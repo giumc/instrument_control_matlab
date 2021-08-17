@@ -60,7 +60,7 @@ classdef Instrument < matlab.mixin.Copyable & handle
            
             obj.interfObj=instr_obj;
             
-            obj.interfObj.Timeout=0.5;
+            obj.interfObj.Timeout=2;
             
             obj.reset;
             
@@ -69,7 +69,7 @@ classdef Instrument < matlab.mixin.Copyable & handle
         y=get(obj,comm,varargin)
         
         set(obj,comm,varargin)
-            
+       
     end
     
     methods %One liners
@@ -90,5 +90,23 @@ classdef Instrument < matlab.mixin.Copyable & handle
         
     end
     
+    methods (Static)
+        
+        function stream=format_input(stream)
+           
+            if isnumeric(stream)
+                
+                if isrow(stream)
+                    
+                    stream=stream.';
+                end
+                
+                stream=num2str(stream);
+                
+            end
+            
+        end
+        
+    end
 end
     

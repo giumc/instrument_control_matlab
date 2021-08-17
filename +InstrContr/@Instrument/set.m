@@ -4,47 +4,89 @@ function set(obj,comm,varargin)
     
         value=varargin{1};
         
-        if isstring(value)
+        switch class(value)
             
-            value=char(value);
-            
+            case 'string'
+                
+                val_pass=char(value);
+
+            case {'double'}
+                
+                val_pass=num2str(value);
+                
+            case 'char'
+                
+                val_pass=value;
+                
         end
+           
+        fwrite(obj.interfObj,[comm,' ',val_pass]);
         
-        if ~(ischar(varargin{1}))
-
-            value=num2str(varargin{1});
-
-        end
-
-        fwrite(obj.interfObj,[comm,' ',value]);
-        
-        ret=obj.get(comm);
+        if comm(end)==':'
             
-        if isfloat(str2double(value))
+            ret=obj.get(comm(1:end-1));
             
-            msgerr=strcat(...
-                sprintf('you requested to set %s as %.2e,\n',comm,str2double(value)),...
-                sprintf('the instrument returned %.2e',str2double(ret)));
-
-            if abs((str2double(ret)-str2double(value))/str2double(ret))>0.01
-
-                error(msgerr);
-
-            end
-
         else
             
-            if ischar(value)
+            ret=obj.get(comm);
+            
+        end
+            
+        if isnumeric(ret)
+            
+            switch class(value)
                 
-                if ~strcmpi(sprintf([value,'\n']),ret)
+                case {'double'}
                     
-                    msgerr=strcat(...
-                        sprintf('you requested to set %s as %s,\n',comm,value),...
-                        sprintf('the instrument returned %s',ret));
+                    val_cmp=value;
                     
-                    error(msgerr);
+                case {'string','char'}
+                    
+                    if isnan(str2double(value))
+                        
+                        error(msg_err(comm,num2str(ret),value));
+    
+                    else
+                        
+                        val_cmp=str2double(value);
+                        
+                    end
+                    
+            end
+               
+            if ret==0
+                
+                if ~(val_cmp==0)
+                    
+                    error(msg_err(comm,num2str(ret),num2str(val_cmp)));
                     
                 end
+                
+            else
+
+                if abs(ret-val_cmp)/ret>0.01
+
+                    error(msg_err(comm,num2str(ret),num2str(val_cmp)));
+
+                end
+
+            end
+            
+        else
+            
+            switch class(value)
+                
+                case {'double'}
+                    
+                    error(msg_err(comm,ret,num2str(value)));
+                
+                case {'char','string'}
+                    
+                    if ~strcmpi(sprintf([value,'\n']),ret)                    
+
+                        error(msg_err(comm,ret,value));
+
+                    end
                 
             end
             
@@ -53,7 +95,16 @@ function set(obj,comm,varargin)
     else
 
         fwrite(obj.interfObj,comm);
-
+        
     end
 
+    function y=msg_err(cmd,r,x)
+
+    y=strcat(...
+        sprintf('cross-check query of %s returned %s',...
+            cmd,r),...
+        sprintf('while you passed %s',x));
+
+    end
+        
 end
