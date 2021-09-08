@@ -1,15 +1,13 @@
 function outcome=calcAverageDifference(obj)
 
-    if isempty(obj.outcome)
+    outcome=obj.outcome;
         
-        result=obj.outcome;
+    if isempty(obj.outcome)
         
         return
         
     end
-     
-    outcome=obj.outcome;
-   
+    
     tags=fieldnames(outcome(1,1).data);
     
     outcome=obj.data_function_sweep(obj.outcome,@(x) diffFun(x));

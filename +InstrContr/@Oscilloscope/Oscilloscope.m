@@ -82,6 +82,12 @@ classdef Oscilloscope < InstrContr.Instrument
             
         end
         
+        function setTrigChannel(obj,ch)
+            
+            obj.set('trigger:source',ch);
+            
+        end
+        
         function activateBWLimit(obj,ch)
             
             obj.setupChannel(ch,':BWLimit',1);

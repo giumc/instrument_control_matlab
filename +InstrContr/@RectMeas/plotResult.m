@@ -64,7 +64,7 @@ function fig=plotResult(obj,field,varargin)
     
     p=[data(:).power];
     
-    d=[data(:).data];
+    d=[data(:)];
     
     d=arrayfun(@(i) fun(d(i).(field)),1:length(d));
 

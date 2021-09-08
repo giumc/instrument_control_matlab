@@ -4,11 +4,19 @@ function plotChannelData(obj,ax,ch)
     
     ax.YLabel.String='Voltage';
     
+    ax.Color='none';
+    
+    ax.XGrid='on';
+    
+    ax.YGrid='on';
+    
+    ax.GridLineStyle='-.';
+    
     delete(ax.Children);
     
     fn=cellstr(ch.chN);
     
-    cols=InstrContr.Tools.brewermap(length(fn),'BuGn');
+    cols=InstrContr.Tools.brewermap(length(fn),'Spectral');
     
     for i=1:length(fn)
         

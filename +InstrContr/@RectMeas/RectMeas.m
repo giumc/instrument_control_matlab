@@ -17,10 +17,10 @@ classdef RectMeas < handle
     methods
         
         fig = plotResult(obj,field,varargin)
+      
+        data = runSEExperiment(obj,f,p,c,r,varargin)
         
-        data = runDiffPowExperiment(obj,f,p,varargin)
-        
-        data = runSEPowExperiment(obj,f,p,varargin)
+        data = runDiffExperiment(obj,f,p,c,r,varargin)
          
     end
    
@@ -77,7 +77,12 @@ classdef RectMeas < handle
         out=function_sweep(data_in,fun);
         
         plotChannelData(ax,ch);
-        
+       
+        function y=dbm2w(pow)
+            
+            y= 10^(pow/10)*1e-3;
+            
+        end
     end
     
 end

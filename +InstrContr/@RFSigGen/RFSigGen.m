@@ -6,6 +6,8 @@ classdef RFSigGen < InstrContr.Instrument
         
         output_buffer_size = 2^11;
         
+        rf_gain=0;
+        
     end
     
     methods
@@ -50,7 +52,13 @@ classdef RFSigGen < InstrContr.Instrument
         
         function setRfPower(obj,p)
             
-            obj.set('AMPR',p);
+            obj.set('AMPR',p-obj.rf_gain);
+            
+        end
+        
+        function setRfGain(obj,gain)
+            
+            obj.rf_gain=gain;
             
         end
         
