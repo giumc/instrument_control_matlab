@@ -1,4 +1,4 @@
-function data=getChannels(obj,chN)
+function data=get_channels(obj,chN)
     
     for i=1:length(chN)
         

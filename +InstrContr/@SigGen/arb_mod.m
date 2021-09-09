@@ -1,4 +1,4 @@
-function arbMod(obj, points, name, freqMod)
+function arb_mod(obj, points, name, freqMod)
 
     %This function allows to create an arbitrary modulation function with the
     %Agilent 33220A tool. The inputs are obj.interfObj, the instrument interface obj.interfObject,

@@ -18,17 +18,15 @@ classdef Oscilloscope < InstrContr.Instrument
 
     methods
 
-        delayTrigger(obj, idleTime, channelN)
+        delay_trigger(obj, idleTime, channelN)
 
-        data = getChannels(obj, channelN)
+        data = get_channels(obj, channelN)
         
-        data=calcChannels(obj,fields_in,fun,field_out)
-            
-        setTrigger(obj, tSweep, triggerLevel, channelN)
+        data=calc_channels(obj,fields_in,fun,field_out)
         
-        scale=getPreamble(obj)
+        scale=get_preamble(obj)
         
-        plotChannelData(obj,ax,ch)
+        plot_channel_data(obj,ax,ch)
         
     end
    
@@ -46,19 +44,19 @@ classdef Oscilloscope < InstrContr.Instrument
     
     methods %One liners
     
-        function setAutoScale(obj)
+        function set_auto_scale(obj)
             
             obj.set('autoscale')
             
         end
         
-        function setTimeScale(obj, scale)
+        function set_time_scale(obj, scale)
 
             obj.set(':timebase:scale',scale);
 
         end
         
-        function setChannelScale(obj,chN,scale_V)
+        function set_channel_scale(obj,chN,scale_V)
         
             chN=obj.format_input(chN);
             
@@ -70,39 +68,39 @@ classdef Oscilloscope < InstrContr.Instrument
             
         end
         
-        function y=getChannelScale(obj,chN)
+        function y=get_channel_scale(obj,chN)
             
             y=obj.get([':channel',obj.format_input(chN),':scale']);
             
         end
         
-        function setExtTrig(obj)
+        function set_ext_trig(obj)
             
             obj.set('trigger:source','ext')
             
         end
         
-        function setTrigChannel(obj,ch)
+        function set_trig_channel(obj,ch)
             
             obj.set('trigger:source',ch);
             
         end
         
-        function activateBWLimit(obj,ch)
+        function activate_BW_limit(obj,ch)
             
-            obj.setupChannel(ch,':BWLimit',1);
+            obj.setup_channel(ch,':BWLimit',1);
             
         end
         
-        function deactivateBWLimit(obj,ch)
+        function deactivate_BW_limit(obj,ch)
             
-            obj.setupChannel(ch,':BWLimit',0);
+            obj.setup_channel(ch,':BWLimit',0);
             
         end
         
         function setBWLimit(obj,ch,val)
             
-            obj.setupChannel(ch,':bandwidth',val);
+            obj.setup_channel(ch,':bandwidth',val);
             
         end
         
@@ -114,17 +112,17 @@ classdef Oscilloscope < InstrContr.Instrument
         
         function activateChannel(obj,chN)
             
-            obj.setupChannel(chN,':display',1);            
+            obj.setup_channel(chN,':display',1);            
             
         end
         
         function deactivateChannel(obj,chN)
 
-            obj.setupChannel(chN,':display',0);
+            obj.setup_channel(chN,':display',0);
         
         end
         
-        function setAverageAcquire(obj,points)
+        function set_average_acquire(obj,points)
             
             obj.set(':acquire:type','aver');
             
@@ -132,7 +130,7 @@ classdef Oscilloscope < InstrContr.Instrument
         
         end
         
-        function setNormalAcquire(obj)
+        function set_normal_acquire(obj)
             
             obj.set(':acquire:type','norm');
             
@@ -142,7 +140,7 @@ classdef Oscilloscope < InstrContr.Instrument
     
    	methods (Access=protected)
     
-        function setupChannel(obj,ch,param,val)
+        function setup_channel(obj,ch,param,val)
             
             val=obj.format_input(val);
             
@@ -156,13 +154,13 @@ classdef Oscilloscope < InstrContr.Instrument
             
         end
         
-        data=getChannel(obj,chN);
+        data=get_channel(obj,chN);
         
     end
     
     methods (Static,Access=protected)
         
-        data=calcChannel(data,fields_in,fun,field_out)
+        data=calc_channel(data,fields_in,fun,field_out)
         
     end
     

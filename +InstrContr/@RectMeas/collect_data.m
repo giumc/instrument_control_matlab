@@ -1,4 +1,4 @@
-function outcome=collectData(obj, freq, pow, ch,varargin)
+function outcome=collect_data(obj, freq, pow, ch,varargin)
 
 % This functions allows to make a frequency sweep for the energy harvester
 % (EH) testing. FREQ is a vector with the frequencies of the sweep, POW is
@@ -17,15 +17,15 @@ function outcome=collectData(obj, freq, pow, ch,varargin)
     
     p=pow(1);
     
-    rf_sg.setRfFreq(f);
+    rf_sg.set_rf_freq(f);
     
-    rf_sg.setRfPower(p);
+    rf_sg.set_rf_power(p);
     
     rf_sg.start;
     
     ch=obj.osc.format_input(ch);
     
-    osc.activateChannel(ch);
+    osc.activate_channel(ch);
     
     outcome=struct('freq',{},'power',{},'data',{});
     
@@ -68,15 +68,15 @@ function outcome=collectData(obj, freq, pow, ch,varargin)
             
             p=pow(i);
 
-            rf_sg.setRfFreq(f);
+            rf_sg.set_rf_freq(f);
                 
-            rf_sg.setRfPower(p);
+            rf_sg.set_rf_power(p);
             
-            channel_data=obj.osc.getChannels(ch);
+            channel_data=obj.osc.get_channels(ch);
         
             if plt
                 
-                obj.osc.plotChannelData(ax_plot,channel_data);
+                obj.osc.plot_channel_data(ax_plot,channel_data);
             
             end
             

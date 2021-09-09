@@ -1,4 +1,4 @@
-function data=calcChannel(data,fields_in,fun,field_out)
+function data=calc_channel(data,fields_in,fun,field_out)
     
     if ~isa(fun,'function_handle')
         

@@ -1,4 +1,4 @@
-function plotChannelData(obj,ax,ch)
+function plot_channel_data(obj,ax,ch)
     
     ax.XLabel.String='Time';
     
@@ -28,7 +28,7 @@ function plotChannelData(obj,ax,ch)
     
     end
         
-    ticks=getChannelTicks(strrep(fn{1},'ch',''));
+    ticks=get_channel_ticks(strrep(fn{1},'ch',''));
 
     ax.YAxis.TickValues=ticks;
 
@@ -36,9 +36,9 @@ function plotChannelData(obj,ax,ch)
     
     drawnow;
     
-    function y=getChannelTicks(chN)
+    function y=get_channel_ticks(chN)
         
-        scale=obj.getChannelScale(chN);
+        scale=obj.get_channel_scale(chN);
         
         offset=obj.get([':channel',obj.format_input(chN),':offset']);
         

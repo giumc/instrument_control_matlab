@@ -10,7 +10,7 @@ classdef SigGen < InstrContr.Instrument
     
     methods
         
-        arbMod(obj, points, name, freqMod)
+        arb_mod(obj, points, name, freqMod)
     
     end
 

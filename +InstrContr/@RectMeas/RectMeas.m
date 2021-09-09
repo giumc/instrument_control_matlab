@@ -16,11 +16,11 @@ classdef RectMeas < handle
     
     methods
         
-        fig = plotResult(obj,field,varargin)
+        fig = plot_result(obj,field,varargin)
       
-        data = runSEExperiment(obj,f,p,c,r,varargin)
+        data = run_SE_experiment(obj,f,p,c,r,varargin)
         
-        data = runDiffExperiment(obj,f,p,c,r,varargin)
+        data = run_Diff_experiment(obj,f,p,c,r,varargin)
          
     end
    
@@ -54,17 +54,17 @@ classdef RectMeas < handle
     
     methods (Access=protected)
         
-        data = collectData(obj, freq, pow,ch,varargin)
+        data = collect_data(obj, freq, pow,ch,varargin)
         
-        data = calcChannel(obj,fields_in,fun,field_out)
+        data = calc_channel(obj,fields_in,fun,field_out)
         
-        data = calcAverage(obj)
+        data = calc_average(obj)
         
-        data = calcAverageDifference(obj)
+        data = calc_average_difference(obj)
         
-        data = calcChPower(obj,r)
+        data = calc_ch_power(obj,r)
         
-        data = calcData(obj,field_in,fun,field_out)
+        data = calc_data(obj,field_in,fun,field_out)
         
     end
     
@@ -76,7 +76,7 @@ classdef RectMeas < handle
 
         out=function_sweep(data_in,fun);
         
-        plotChannelData(ax,ch);
+        plot_channel_data(ax,ch);
        
         function y=dbm2w(pow)
             

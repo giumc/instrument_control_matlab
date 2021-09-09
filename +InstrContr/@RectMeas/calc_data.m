@@ -1,4 +1,4 @@
-function outcome=calcData(obj,fields_in,fun,field_out)
+function outcome=calc_data(obj,fields_in,fun,field_out)
 
     if isempty(obj.outcome)
         

@@ -1,4 +1,4 @@
-function fig=plotResult(obj,field,varargin)
+function fig=plot_result(obj,field,varargin)
 
     if isa(field,'char')
         

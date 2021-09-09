@@ -78,24 +78,7 @@ classdef RFSigGen < InstrContr.Instrument
             
         end
         
-        function set_phase_depth(obj,val)
-            
-            obj.set('PDEV',val);
-            
-        end
-        
-        function set_freq_depth(obj,val)
-            
-            obj.set('FDEV',val);
-            
-        end
-        
-        function set_mod_rate(obj,val)
-            
-            obj.set('RATE',val);
-            
-        end
-        
+        function set
     end
     
 end

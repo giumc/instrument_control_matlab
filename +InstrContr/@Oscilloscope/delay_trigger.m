@@ -1,4 +1,4 @@
-function delayTrigger(obj, idleTime, channelN)
+function delay_trigger(obj, idleTime, channelN)
 
     %This function allows to set the trigger in EBURST mode, so only the first
     %rising or falling edge of the first pulse will trigger the oscilloscope.

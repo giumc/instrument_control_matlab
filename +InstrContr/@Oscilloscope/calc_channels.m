@@ -1,4 +1,4 @@
-function data=calcChannels(obj,fields_in,fun,field_out)
+function data=calc_channels(obj,fields_in,fun,field_out)
    
     data=obj.data;
     
