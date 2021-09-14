@@ -66,7 +66,13 @@ function fig=plot_result(obj,field,varargin)
     
     d=[data(:)];
     
-    d=arrayfun(@(i) fun(d(i).(field)),1:length(d));
+    fields=split(field,'.');
+    
+    for k=1:length(fields)
+        
+        d=arrayfun(@(i) fun(d(i).(fields(k))),1:length(d));
+        
+    end
 
     t=table(f.',p.',d.');
     

@@ -10,31 +10,31 @@ m.set_osc(NSLab.DSOX6004A)
 
 m.set_rf_sig_gen(NSLab.TSG4104A)
 
-m.osc.setTimeScale(10e-6);
+m.osc.set_time_scale(10e-6);
 
 m.osc.points=1000;
 
-m.osc.activateChannel([1 2]);
+m.osc.activate_channel([1 2]);
 
-m.osc.setChannelScale([1 2],0.005);
+m.osc.set_channel_scale([1 2],0.005);
 
-m.osc.setBWLimit([1,2],20e6);
+m.osc.set_BW_limit([1,2],20e6);
 
-m.osc.activateBWLimit([1,2]);
+m.osc.activate_BW_limit([1,2]);
 
-m.osc.setAverageAcquire(64);
+m.osc.set_average_acquire(64);
 
-m.osc.setExtTrig;
+m.osc.set_ext_trig;
 
 tic;
 
-m.rf_sig_gen.setRfGain(43);
+m.rf_sig_gen.set_rf_gain(43);
 %%
 
 r=1e6;
 
-outcome=m.runSEExperiment(500*1e6,[-20:5:0],[1,2],r);
+outcome=m.run_SE_experiment(500*1e6,-20:5:0,[1,2],r);
 
-m.plotResult('efficiency');
+m.plot_result('efficiency');
 
 % save_data(folder,strcat('FBAR_Rect',string(datetime)),outcome)

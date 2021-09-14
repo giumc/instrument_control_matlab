@@ -2,48 +2,36 @@ function output=run_SE_experiment(obj,freq,power,ch,res,varargin)
 
     obj.collect_data(freq,power,ch,varargin{:});
     
-    input=obj.outcome;
+    output=obj.outcome;
     
-    for i=1:numel(input)
+    function outcome=calc_vals(outcome)
         
-        o=input(i);
-
-        chN=o.data.chN;
-        
-        for j=1:length(chN) % calculate average
-            
-            ch=o.data.(chN(j));
-            
-            average_v=sum(ch.v)/length(ch.v);
-            
-            dc_power=average_v^2/res;
-            
-            o.data.(chN(j)).average_v=average_v;
-            
-            o.data.(chN(j)).dc_power=dc_power;
-            
-        end
+        data=outcome.data;
         
         rect_power=0;
         
-        for j=1:length(chN)
+        chN=data.chN;
+        
+        for i=1:length(chN)
             
-            rect_power=rect_power+o.data.(chN(j)).dc_power;
+            data.(chN(i)).average_v=sum(data.(chN(i)).v)/length(data.(chN(i)).v);
             
-            efficiency=rect_power/obj.dbm2w(o.power);
+            data.(chN(i)).dc_power=data.(chN(i)).average_v^2/res;
+            
+            rect_power=rect_power+data.(chN(i)).dc_power;
             
         end
         
-        o.rect_power=rect_power;
+        outcome.data=data;
         
-        o.efficiency=efficiency;
+        outcome.rect_power=rect_power;
         
-        output(i)=o;
-        
-        o.resistor=res;
+        outcome.efficiency=rect_power/obj.dbm2w(outcome.power);
         
     end
-    
+
+    output=obj.apply_to_output(@(x) calc_vals(x));
+        
     obj.outcome=output;
     
 end

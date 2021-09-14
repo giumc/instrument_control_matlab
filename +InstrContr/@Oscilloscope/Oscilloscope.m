@@ -41,6 +41,7 @@ classdef Oscilloscope < InstrContr.Instrument
         end
     
     end
+
     
     methods %One liners
     
@@ -98,25 +99,25 @@ classdef Oscilloscope < InstrContr.Instrument
             
         end
         
-        function setBWLimit(obj,ch,val)
+        function set_BW_limit(obj,ch,val)
             
             obj.setup_channel(ch,':bandwidth',val);
             
         end
         
-        function setPoints(obj,n)
+        function set_points(obj,n)
             
             obj.set('waveform:points',n)
             
         end
         
-        function activateChannel(obj,chN)
+        function activate_channel(obj,chN)
             
             obj.setup_channel(chN,':display',1);            
             
         end
         
-        function deactivateChannel(obj,chN)
+        function deactivate_channel(obj,chN)
 
             obj.setup_channel(chN,':display',0);
         

@@ -16,7 +16,7 @@ function plot_channel_data(obj,ax,ch)
     
     fn=cellstr(ch.chN);
     
-    cols=InstrContr.Tools.brewermap(length(fn),'Spectral');
+    cols=InstrContr.Tools.brewermap(length(fn),'Dark2');
     
     for i=1:length(fn)
         

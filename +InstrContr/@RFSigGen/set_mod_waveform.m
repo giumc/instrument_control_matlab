@@ -1,8 +1,8 @@
-function set_mod_waveform(obj,modWf)
-%   set_mod_type(obj, modWf)
-%   modWf can be 'sine', 'square', 'ramp' or 'triangle'.
+function set_mod_waveform(obj,mod_wf)
+%   set_mod_type(obj, mod_wf)
+%   mod_wf can be 'sine', 'square', 'ramp' or 'triangle'.
 
-    switch modWf
+    switch mod_wf
 
         case 'sine'
                 obj.set('MFNC',0);

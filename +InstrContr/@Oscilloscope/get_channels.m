@@ -2,7 +2,7 @@ function data=get_channels(obj,chN)
     
     for i=1:length(chN)
         
-        data.(['ch',obj.format_input(chN(i))])=obj.getChannel(chN(i));
+        data.(['ch',obj.format_input(chN(i))])=obj.get_channel(chN(i));
         
     end
     

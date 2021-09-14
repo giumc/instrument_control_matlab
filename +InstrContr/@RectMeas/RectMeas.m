@@ -65,16 +65,13 @@ classdef RectMeas < handle
         data = calc_ch_power(obj,r)
         
         data = calc_data(obj,field_in,fun,field_out)
+
+        out=apply_to_output(obj,fun);    
         
     end
     
     methods (Access=protected,Static)
-        
-        out=channel_function_sweep(data_in,fun);
-        
-        out=data_function_sweep(data_in,fun);
 
-        out=function_sweep(data_in,fun);
         
         plot_channel_data(ax,ch);
        

@@ -1,4 +1,4 @@
-function data = getChannel(obj, channelN)
+function data = get_channel(obj, channelN)
 
     % This function is used to extract and plot the data from the oscilloscope.
     % OBJ is the interface object for the oscilloscope, CHANNELN is the channel
@@ -11,7 +11,7 @@ function data = getChannel(obj, channelN)
     
     try
         
-        obj.setPoints(pts);
+        obj.set_points(pts);
         
     catch msg
         
@@ -31,7 +31,7 @@ function data = getChannel(obj, channelN)
         
         if strcmpi(obj.get(':waveform:format'),sprintf('BYTE\n'))
 
-            scale=obj.getPreamble;
+            scale=obj.get_preamble;
 
             if obj.get(':waveform:unsigned')==1
 
@@ -63,10 +63,10 @@ function data = getChannel(obj, channelN)
 
                 clipped=1;
 
-                obj.setChannelScale(channelN,obj.getChannelScale(channelN)*2);
+                obj.set_channel_scale(channelN,obj.get-channel_scale(channelN)*2);
                 
                 warning("scaled doubled to %.3f to avoid clipping in channel %s",...
-                    obj.getChannelScale(channelN),...
+                    obj.get_channel_scale(channelN),...
                     channelN);
 
                 obj.set(':digitize');
