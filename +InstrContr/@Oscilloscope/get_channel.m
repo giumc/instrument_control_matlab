@@ -63,7 +63,7 @@ function data = get_channel(obj, channelN)
 
                 clipped=1;
 
-                obj.set_channel_scale(channelN,obj.get-channel_scale(channelN)*2);
+                obj.set_channel_scale(channelN,obj.get_channel_scale(channelN)*2);
                 
                 warning("scaled doubled to %.3f to avoid clipping in channel %s",...
                     obj.get_channel_scale(channelN),...

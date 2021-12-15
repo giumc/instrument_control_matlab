@@ -20,7 +20,7 @@ function set(obj,comm,varargin)
                 
         end
            
-        fwrite(obj.interfObj,[comm,' ',val_pass]);
+        fprintf(obj.interfObj,[comm,' ',val_pass]);
         
         if comm(end)==':'
             
@@ -94,7 +94,7 @@ function set(obj,comm,varargin)
 
     else
 
-        fwrite(obj.interfObj,comm);
+        fprintf(obj.interfObj,comm);
         
     end
 

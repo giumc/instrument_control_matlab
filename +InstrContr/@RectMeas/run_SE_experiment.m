@@ -28,6 +28,8 @@ function output=run_SE_experiment(obj,freq,power,ch,res,varargin)
         
         outcome.efficiency=rect_power/obj.dbm2w(outcome.power);
         
+        outcome.resistor=res;
+        
     end
 
     output=obj.apply_to_output(@(x) calc_vals(x));

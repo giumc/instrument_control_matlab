@@ -12,6 +12,8 @@ classdef Instrument < matlab.mixin.Copyable & handle
         
         builder char;
         
+        timeout=0.5;
+        
     end
     
     properties 
@@ -56,11 +58,12 @@ classdef Instrument < matlab.mixin.Copyable & handle
             
             instr_obj.InputBufferSize=obj.input_buffer_size;
             
+            
             fopen(instr_obj);
            
             obj.interfObj=instr_obj;
             
-            obj.interfObj.Timeout=2;
+            obj.interfObj.Timeout=obj.timeout;
             
             obj.reset;
             
@@ -70,6 +73,12 @@ classdef Instrument < matlab.mixin.Copyable & handle
         
         set(obj,comm,varargin)
        
+        function delete(obj)
+            
+            fclose(obj.interfObj);
+            
+        end
+        
     end
     
     methods %One liners
@@ -77,16 +86,21 @@ classdef Instrument < matlab.mixin.Copyable & handle
         function y=id(obj)
         
             
-            y=obj.get('*IDN?');
+            y=obj.get('*IDN');
             
         end 
          
         function reset(obj)
             
-            obj.set('system:preset');
+%             obj.set('*RST');
+%             
+%             while ~(obj.get('*OPC')==1)
+%                 
+%                 pause(0.25);
+%                 
+%             end
             
         end
-       
         
     end
     
@@ -107,6 +121,9 @@ classdef Instrument < matlab.mixin.Copyable & handle
             
         end
         
+    s=map_entries(valid_entries,tag);
+        
     end
+    
 end
     

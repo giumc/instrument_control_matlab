@@ -28,7 +28,7 @@ m.osc.set_average_acquire(64);
 
 tic;
 
-m.rf_sig_gen.set_rf_gain(43-6-35);
+m.rf_sig_gen.set_rf_gain(43-6);
 %%
 
 r=1e6;

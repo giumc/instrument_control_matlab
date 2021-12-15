@@ -21,6 +21,8 @@ classdef RectMeas < handle
         data = run_SE_experiment(obj,f,p,c,r,varargin)
         
         data = run_Diff_experiment(obj,f,p,c,r,varargin)
+        
+        flag = save_data(obj,folder,filename)
          
     end
    
