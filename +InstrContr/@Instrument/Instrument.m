@@ -12,7 +12,7 @@ classdef Instrument < matlab.mixin.Copyable & handle
         
         builder char;
         
-        timeout=0.5;
+        timeout=1;
         
     end
     
@@ -92,13 +92,7 @@ classdef Instrument < matlab.mixin.Copyable & handle
          
         function reset(obj)
             
-%             obj.set('*RST');
-%             
-%             while ~(obj.get('*OPC')==1)
-%                 
-%                 pause(0.25);
-%                 
-%             end
+            obj.set('*RST');
             
         end
         
@@ -121,7 +115,8 @@ classdef Instrument < matlab.mixin.Copyable & handle
             
         end
         
-    s=map_entries(valid_entries,tag);
+    s=map_shortcut(valid_entries,tag);
+    s=map_allowed_values(valid_entries,tag);
         
     end
     

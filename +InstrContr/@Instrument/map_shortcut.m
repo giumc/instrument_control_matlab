@@ -1,4 +1,4 @@
-function s=map_entries(entries,tag)
+function s=map_shortcut(entries,tag)
 
     extra_terms={};
 
