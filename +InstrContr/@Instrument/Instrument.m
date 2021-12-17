@@ -12,7 +12,7 @@ classdef Instrument < matlab.mixin.Copyable & handle
         
         builder char;
         
-        timeout=1;
+        timeout=3;
         
     end
     
@@ -40,7 +40,7 @@ classdef Instrument < matlab.mixin.Copyable & handle
                         
                         instr_obj=varargin{1};
                         
-                        obj.builder=instr_obj.RsrcName;
+                        obj.builder=instr_obj.ResourceName;
                         
                     end
                 
@@ -54,12 +54,12 @@ classdef Instrument < matlab.mixin.Copyable & handle
                
             end
 
-            instr_obj.OutputBufferSize=obj.output_buffer_size;
+%             instr_obj.OutputBufferSize=obj.output_buffer_size;
             
-            instr_obj.InputBufferSize=obj.input_buffer_size;
+%             instr_obj.InputBufferSize=obj.input_buffer_size;
             
             
-            fopen(instr_obj);
+%             fopen(instr_obj);
            
             obj.interfObj=instr_obj;
             
@@ -72,10 +72,12 @@ classdef Instrument < matlab.mixin.Copyable & handle
         y=get(obj,comm,varargin)
         
         set(obj,comm,varargin)
+        
+        check_for_errors(obj)
        
         function delete(obj)
             
-            fclose(obj.interfObj);
+            delete(obj.interfObj);
             
         end
         
@@ -100,7 +102,7 @@ classdef Instrument < matlab.mixin.Copyable & handle
     
     methods (Static)
         
-        function stream=format_input(stream)
+    function stream=format_input(stream)
            
             if isnumeric(stream)
                 
@@ -110,13 +112,16 @@ classdef Instrument < matlab.mixin.Copyable & handle
                 end
                 
                 stream=num2str(stream);
-                
+               
             end
             
         end
         
     s=map_shortcut(valid_entries,tag);
+    
     s=map_allowed_values(valid_entries,tag);
+    
+    y=to_binary(str,varargin);
         
     end
     

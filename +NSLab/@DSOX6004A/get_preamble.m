@@ -1,10 +1,8 @@
 function scale=get_preamble(obj)
     
-    interface=obj.interfObj;
+    raw_data=obj.get('waveform:preamble');
     
-    raw_data=query(interface,'waveform:preamble?');
-    
-    raw_data=cellfun(@str2num,split(raw_data,','));
+    raw_data=cellfun(@str2double,split(raw_data,','));
     
     scale.format = raw_data(1);
     

@@ -20,51 +20,5 @@ classdef SigGen < InstrContr.Instrument
         
     end
     
-    methods %Oneliners
-        
-        function set_channel(obj,n)
-            
-            obj.set('CHN',n);
-            
-        end
-        
-        function set_freq(obj,f)
-            
-            obj.set('FREQ',f);
-            
-        end
-        
-        function set_hi_level(obj,v)
-            
-            obj.set('HILVL',v);
-            
-        end
-        
-        function set_low_level(obj,v)
-            
-            obj.set('LOLVL',v);
-        
-        end
-        
-        function set_dc_value(obj,v)
-            
-            obj.set('DCOFFS',v);
-        
-        end
-        
-        function set_amplitude(obj,v)
-            
-            obj.set('AMPL',v);
-            
-        end
-        
-        function set_output(obj,v)
-            
-            obj.set('OUTPUT',v);
-            
-        end
-        
-    end
-    
 end
 

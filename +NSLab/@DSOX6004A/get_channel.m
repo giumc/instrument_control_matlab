@@ -1,11 +1,8 @@
 function data = get_channel(obj, channelN)
 
-    % This function is used to extract and plot the data from the oscilloscope.
-    % OBJ is the interface object for the oscilloscope, CHANNELN is the channel
-    % number (1,2,3 or 4), and figN is the figure number used for the plot.
-    % XAXIS is the time axis, while WAVEFORM are the data on the Y-axis.
-   
-    obj.set(':waveform:source',['chan',num2str(channelN)]);
+    pause (1)
+    
+    obj.set([':waveform:source ','chan',num2str(channelN)]);
     
     pts=obj.points;
     
@@ -19,7 +16,7 @@ function data = get_channel(obj, channelN)
         
         pts=obj.get(':waveform:points');
         
-        warning('waveform:points set to %d ',pts);
+        warning('waveform:points set to %d',pts);
         
     end
     
@@ -29,21 +26,21 @@ function data = get_channel(obj, channelN)
 
     while clipped
         
-        if strcmpi(obj.get(':waveform:format'),sprintf('BYTE\n'))
+        if strcmpi(obj.get(':waveform:format'),sprintf('BYTE'))
 
             scale=obj.get_preamble;
 
             if obj.get(':waveform:unsigned')==1
 
-                obj.set(':waveform:data?');
+                obj.interfObj.writeline('waveform:data?');
                 %binblockread has to be immediately after obj.set
-                [sig,count,msg]=binblockread(obj.interfObj,'uint8');
+                sig=obj.interfObj.readbinblock('uint8');
 
             else
 
-                obj.set(':waveform:data?');
+                obj.interfObj.writeline('waveform:data?');
 
-                [sig,count,msg]=binblockread(obj.interfObj,'int8');
+                sig=obj.interfObj.readbinblock('int8');
 
             end
 

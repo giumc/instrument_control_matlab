@@ -21,11 +21,13 @@ function set(obj,comm,varargin)
 
     end
     
+    
+    
     switch length(mapped_command)
 
         case 0
 
-            error("Entry %s is mapped to no command!",comm);
+            mapped_command=obj.map_allowed_values({},comm);
 
         case 1
             
@@ -47,13 +49,24 @@ function set(obj,comm,varargin)
                 
             end
 
-            set@InstrContr.Instrument(obj,mapped_command.tag,varargin{:});
-
         otherwise 
 
             error("Entry %s is mapped to multipls commands!",comm);
 
     end
 
+    if strcmp(mapped_command.tag,'MODE')
+        
+        obj.mode=varargin{1};
+        
+    end
+    
+    if strcmp(mapped_command.tag,'TRACKING')
+        
+        obj.tracking=varargin{1};
+        
+    end
+    
+    set@InstrContr.Instrument(obj,mapped_command.tag,varargin{:});
     
 end

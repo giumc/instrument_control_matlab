@@ -20,22 +20,24 @@ function set(obj,comm,varargin)
                 
         end
         
-        comm=[comm,' ',val_pass];
-           
-        fprintf(obj.interfObj,comm);
-        
-    else
-
-        fprintf(obj.interfObj,comm);
-
-    end
+        comm=string([comm,' ',val_pass]);
     
-    error_bin=dec2bin(obj.get('*ESR'));
+    else
         
-    if ~strcmp(error_bin,'0')
-        % TO DO : specialize error return
-        error("writing %s caused error %s in ESR",comm,error_bin);
-
+        comm=string(comm);
+        
     end
+
+    obj.interfObj.writeline(comm);
+
+%     try
+%         
+%         obj.check_for_errors;
+%        
+%     catch exception
+%         
+%         error("writing ""%s"" caused error :\n%s",comm,exception.message);
+% 
+%     end
         
 end
