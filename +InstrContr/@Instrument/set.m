@@ -20,24 +20,20 @@ function set(obj,comm,varargin)
                 
         end
         
-        comm=string([comm,' ',val_pass]);
-    
-    else
-        
-        comm=string(comm);
-        
+        comm=[comm,' ',val_pass];
+   
     end
 
     obj.interfObj.writeline(comm);
 
-%     try
-%         
-%         obj.check_for_errors;
-%        
-%     catch exception
-%         
-%         error("writing ""%s"" caused error :\n%s",comm,exception.message);
-% 
-%     end
+    try
+        
+        obj.check_for_errors;
+       
+    catch exception
+        
+        error("writing ""%s"" caused error :\n%s",comm,exception.message);
+
+    end
         
 end

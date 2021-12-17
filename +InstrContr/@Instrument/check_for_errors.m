@@ -1,14 +1,9 @@
 function check_for_errors(obj)
 
-    obj.interfObj.writeline("*ESR?");
-    
-    pause(1);
-    
     try
         
-        msg=obj.interfObj.readline();
-        
-        
+        msg=obj.interfObj.writeread("*ESR?");
+    
         if isempty(msg)
             
             error("No output after ESR query");

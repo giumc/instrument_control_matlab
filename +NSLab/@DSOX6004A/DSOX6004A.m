@@ -2,7 +2,7 @@ classdef DSOX6004A < InstrContr.Oscilloscope
     
     methods
     
-        function obj=DSOX6004A(varargin)
+        function obj=DSOX6004A()
             
             obj=obj@InstrContr.Oscilloscope(...
                 visadev('USB0::0x0957::0x1780::MY56270554::INSTR'));

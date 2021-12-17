@@ -18,9 +18,9 @@ classdef Oscilloscope < InstrContr.Instrument
     
     methods  % Constructors
         
-        function obj = Oscilloscope(varargin)
+        function obj = Oscilloscope(visa)
           
-            obj=obj@InstrContr.Instrument(varargin{:});
+            obj@InstrContr.Instrument(visa);
             
             disp(fprintf('Oscilloscope :\n %s',obj.id))
             

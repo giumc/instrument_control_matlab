@@ -1,4 +1,4 @@
-classdef Instrument < matlab.mixin.Copyable & handle
+classdef Instrument <  handle
     
     properties (Access=protected, Abstract)
         
@@ -12,7 +12,7 @@ classdef Instrument < matlab.mixin.Copyable & handle
         
         builder char;
         
-        timeout=3;
+        timeout=1;
         
     end
     
@@ -24,43 +24,27 @@ classdef Instrument < matlab.mixin.Copyable & handle
     
     methods 
         
-        function obj=Instrument(varargin)
-            
-            if ~isempty(varargin)
-                
-                if ischar(varargin{1})
-                    
-                    obj.builder=varargin{1};
-                    
-                    instr_obj=eval(obj.builder);
-                    
-                else
-                    
-                    if isobject(varargin{1})
-                        
-                        instr_obj=varargin{1};
-                        
-                        obj.builder=instr_obj.ResourceName;
-                        
-                    end
-                
-                end
-                
-            else
-                
-                error("Pass a ObjectConstructorName here!")
-                % TODO : handle base case by prompting list of all
-                % connected instruments
-               
-            end
+        function obj=Instrument(visa)
 
-%             instr_obj.OutputBufferSize=obj.output_buffer_size;
             
-%             instr_obj.InputBufferSize=obj.input_buffer_size;
+            if ischar(visa)
+
+                obj.builder=visa;
+
+                instr_obj=eval(obj.builder);
+
+            else
+
+                if isobject(visa)
+
+                    instr_obj=visa;
+
+                    obj.builder=instr_obj.ResourceName;
+
+                end
+
+            end
             
-            
-%             fopen(instr_obj);
-           
             obj.interfObj=instr_obj;
             
             obj.interfObj.Timeout=obj.timeout;
