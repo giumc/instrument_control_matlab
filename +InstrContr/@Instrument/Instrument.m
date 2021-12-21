@@ -45,6 +45,10 @@ classdef Instrument <  handle
 
             end
             
+            instr_obj.InputBuffersize=obj.input_buffer_size;
+            
+            instr_obj.OutputBuffersize=obj.output_buffer_size;
+
             fopen(instr_obj);
             
             obj.interfObj=instr_obj;

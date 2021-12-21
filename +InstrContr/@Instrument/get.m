@@ -12,6 +12,12 @@ function y=get(obj,command,varargin)
 
     y=fscanf(obj.interfObj);
 
+    if isempty(y)
+        
+        error("command %s had no return",command);
+        
+    end
+        
     if ~isnan(str2double(y))
         
         y=str2double(y);

@@ -1,5 +1,11 @@
 classdef DSOX6004A < InstrContr.Oscilloscope
     
+    properties (Access=private,Constant)
+        
+        channel_colors=['g','y','b','r'];
+        
+    end
+    
     methods
     
         function obj=DSOX6004A()
@@ -70,6 +76,12 @@ classdef DSOX6004A < InstrContr.Oscilloscope
         function y=get_channel_scale(obj,chN)
             
             y=obj.get([':channel',obj.format_input(chN),':scale']);
+            
+        end
+        
+        function y=get_channel_offset(obj,chN)
+            
+            y=obj.get([':channel',obj.format_input(chN),':offset']);
             
         end
         

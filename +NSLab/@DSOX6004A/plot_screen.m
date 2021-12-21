@@ -23,5 +23,9 @@ function plot_screen(obj)
     ax=gca;
     
     obj.plot_channel_data(ax,d);
+    
+    l=legend(ax);
+    
+    l.Visible='on';
             
 end

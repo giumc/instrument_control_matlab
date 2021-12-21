@@ -16,34 +16,24 @@ function plot_channel_data(obj,ax,ch)
     
     fn=cellstr(ch.chN);
     
-    cols=InstrContr.Tools.brewermap(length(fn),'Dark2');
+    scale=[];
     
     for i=1:length(fn)
         
-        p(i)=line(ax,ch.(fn{i}).t,ch.(fn{i}).v);
-        
+        ch_number=str2double(strrep(fn{i},'ch',''));
+  
+        p(i)=line(ax,...
+            ch.(fn{i}).t,...
+            ch.(fn{i}).v,...
+            'Color',obj.channel_colors(ch_number));
+      
         p(i).DisplayName=fn{i};
         
-        p(i).Color=cols(i,:);
-    
     end
         
-    ticks=get_channel_ticks(strrep(fn{1},'ch',''));
-
-    ax.YAxis.TickValues=ticks;
-
-    ax.YAxis.Limits=[ticks(1), ticks(end)];
+    xlim auto
+    ylim auto
     
     drawnow;
-    
-    function y=get_channel_ticks(chN)
-        
-        scale=obj.get_channel_scale(chN);
-        
-        offset=obj.get([':channel',obj.format_input(chN),':offset']);
-        
-        y=offset-4*scale:scale:offset+5*scale;
-        
-    end
-   
+
 end
