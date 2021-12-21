@@ -26,21 +26,21 @@ function data = get_channel(obj, channelN)
 
     while clipped
         
-        if strcmpi(obj.get(':waveform:format'),sprintf('BYTE'))
+        if strcmpi(obj.get(':waveform:format'),'BYTE')
 
             scale=obj.get_preamble;
 
             if obj.get(':waveform:unsigned')==1
 
-                obj.interfObj.writeline('waveform:data?');
+                fprintf(obj.interfObj,'waveform:data?');
                 %binblockread has to be immediately after obj.set
-                sig=obj.interfObj.readbinblock('uint8');
+                sig=binblockread(obj.interfObj,'uint8');
 
             else
 
-                obj.interfObj.writeline('waveform:data?');
+                fprintf(obj.interfObj,'waveform:data?');
 
-                sig=obj.interfObj.readbinblock('int8');
+                sig=binblockread(obj.interfObj,'int8');
 
             end
 
@@ -74,8 +74,12 @@ function data = get_channel(obj, channelN)
 
             end
 
-        end
+        else
+            
+            error('DSOX6004A get_channel handles byte-only datatypes');
 
+        end
+        
     end
 
     data.t=t;

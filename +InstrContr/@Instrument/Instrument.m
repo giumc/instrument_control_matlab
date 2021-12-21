@@ -39,11 +39,13 @@ classdef Instrument <  handle
 
                     instr_obj=visa;
 
-                    obj.builder=instr_obj.ResourceName;
+                    obj.builder=instr_obj.RsrcName;
 
                 end
 
             end
+            
+            fopen(instr_obj);
             
             obj.interfObj=instr_obj;
             
@@ -61,7 +63,7 @@ classdef Instrument <  handle
        
         function delete(obj)
             
-            delete(obj.interfObj);
+            fclose(obj.interfObj);
             
         end
         

@@ -24,7 +24,7 @@ function set(obj,comm,varargin)
    
     end
 
-    obj.interfObj.writeline(comm);
+    fprintf(obj.interfObj,comm);
 
     try
         
@@ -32,7 +32,9 @@ function set(obj,comm,varargin)
        
     catch exception
         
-        error("writing ""%s"" caused error :\n%s",comm,exception.message);
+        fprintf("writing ""%s"" caused error :\n",comm);
+        
+        rethrow(exception)
 
     end
         

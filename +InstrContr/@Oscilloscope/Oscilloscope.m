@@ -26,8 +26,6 @@ classdef Oscilloscope < InstrContr.Instrument
             
         end
         
-        plot_screen(obj);
-        
     end
     
 end

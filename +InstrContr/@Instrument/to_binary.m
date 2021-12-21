@@ -10,6 +10,14 @@ function  y=to_binary(str,varargin)
 
     end
 
-    y=dec2bin(str2double(str),min_digits);
-
+    if ischar(str) || isstring(str)
+        
+        y=dec2bin(str2double(str),min_digits);
+       
+    else
+        
+        y=dec2bin(str,min_digits);
+        
+    end
+    
 end

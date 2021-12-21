@@ -1,19 +1,11 @@
 function check_for_errors(obj)
-
-    try
-        
-        msg=obj.interfObj.writeread("*ESR?");
     
-        if isempty(msg)
-            
-            error("No output after ESR query");
-            
-        end
-        
-    catch exception
-        
-        error("Error while reading ESR :\n%s",exception.message);
-        
+    msg=obj.get('*ESR?');
+
+    if isempty(msg)
+
+        error("No output after ESR query");
+
     end
     
     error_bin=obj.to_binary(msg,8);

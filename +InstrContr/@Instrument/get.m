@@ -5,20 +5,24 @@ function y=get(obj,command,varargin)
         command=[command,'?'];
 
     end
-
-    try
-        
-        y=obj.interfObj.writeread([command,varargin{:}]);
-
-    catch exception
-        
-        error("query of ""%s"" has returned error :\n%s",command,exception.message);
-        
-    end
     
+    fprintf(obj.interfObj,[command,varargin{:}]);
+
+    pause(0.5);
+
+    y=fscanf(obj.interfObj);
+
     if ~isnan(str2double(y))
         
         y=str2double(y);
+        
+    else
+        
+        if double(y(end))==10
+            
+            y(end)=[];
+            
+        end
         
     end
        
