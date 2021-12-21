@@ -10,4 +10,6 @@ function data=get_channels(obj,chN)
     
     obj.data=data;
     
+    obj.set('run');
+    
 end

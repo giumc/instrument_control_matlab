@@ -2,7 +2,9 @@ classdef DSOX6004A < InstrContr.Oscilloscope
     
     properties (Access=private,Constant)
         
-        channel_colors=['g','y','b','r'];
+        channel_colors=['y','g','b','r'];
+        
+        points=2048;
         
     end
     

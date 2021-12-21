@@ -10,12 +10,6 @@ classdef Oscilloscope < InstrContr.Instrument
         
     end
     
-    properties
-        
-        points=2500;
-        
-    end
-    
     methods  % Constructors
         
         function obj = Oscilloscope(visa)
