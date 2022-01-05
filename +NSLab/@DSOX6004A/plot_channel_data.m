@@ -25,9 +25,11 @@ function plot_channel_data(obj,ax,ch)
         p(i)=line(ax,...
             ch.(fn{i}).t,...
             ch.(fn{i}).v,...
-            'Color',obj.channel_colors(ch_number));
+            'Color',obj.channel_colors(ch_number,:));
       
         p(i).DisplayName=fn{i};
+        
+        p(i).LineWidth=3;
         
     end
         

@@ -10,6 +10,12 @@ classdef Oscilloscope < InstrContr.Instrument
         
     end
     
+    properties 
+        
+          points=2048;
+        
+    end
+    
     methods  % Constructors
         
         function obj = Oscilloscope(visa)
@@ -19,6 +25,12 @@ classdef Oscilloscope < InstrContr.Instrument
             disp(fprintf('Oscilloscope :\n %s',obj.id))
             
         end
+        
+    end
+    
+    methods (Access=protected)
+        
+        [t,y]=clean_data(obj,t,y);
         
     end
     

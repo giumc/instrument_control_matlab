@@ -9,7 +9,5 @@ function data=get_channels(obj,chN)
     data.chN=string(arrayfun(@(x) ['ch',obj.format_input(chN(x))],1:length(chN),'UniformOutput',false));
     
     obj.data=data;
-    
-    obj.set('run');
-    
+
 end

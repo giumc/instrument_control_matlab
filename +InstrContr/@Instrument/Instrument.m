@@ -25,8 +25,7 @@ classdef Instrument <  handle
     methods 
         
         function obj=Instrument(visa)
-
-            
+         
             if ischar(visa)
 
                 obj.builder=visa;
@@ -71,6 +70,12 @@ classdef Instrument <  handle
             
         end
         
+        function flush(obj)
+            
+            clrdevice(obj.interfObj);
+            
+        end
+        
     end
     
     methods %One liners
@@ -85,6 +90,7 @@ classdef Instrument <  handle
         function reset(obj)
             
             obj.set('*RST');
+            obj.set("*CLS");
             
         end
         

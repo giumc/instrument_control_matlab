@@ -21,8 +21,6 @@ function set(obj,comm,varargin)
 
     end
     
-    
-    
     switch length(mapped_command)
 
         case 0
@@ -55,9 +53,9 @@ function set(obj,comm,varargin)
 
     end
 
-    if strcmp(mapped_command.tag,'MODE')
+    if strcmp(mapped_command.tag,'WAVE')
         
-        obj.mode=varargin{1};
+        obj.wave=varargin{1};
         
     end
     
@@ -67,6 +65,16 @@ function set(obj,comm,varargin)
         
     end
     
-    set@InstrContr.Instrument(obj,mapped_command.tag,varargin{:});
+    if any(matches(obj.wave_commands,mapped_command.tag))
+    
+        set@InstrContr.Instrument(obj,...
+            obj.wave_command(mapped_command.tag),varargin{:});
+        
+    else
+        
+        set@InstrContr.Instrument(obj,...
+            mapped_command.tag,varargin{:});
+        
+    end
     
 end

@@ -2,10 +2,12 @@ classdef DSOX6004A < InstrContr.Oscilloscope
     
     properties (Access=private,Constant)
         
-        channel_colors=['y','g','b','r'];
-        
-        points=2048;
-        
+        channel_colors=[InstrContr.Tools.rgb('darkgoldenrod');...
+                InstrContr.Tools.rgb('darkgreen');...
+                InstrContr.Tools.rgb('darkblue');...
+                InstrContr.Tools.rgb('darkred')];
+      
+        channels=['1';'2';'3';'4'];
     end
     
     methods
@@ -20,7 +22,7 @@ classdef DSOX6004A < InstrContr.Oscilloscope
         function reset(obj)
             
             obj.set(':system:preset');
-            
+            obj.set('*CLS');
         end
         
     end
@@ -34,12 +36,18 @@ classdef DSOX6004A < InstrContr.Oscilloscope
         data=calc_channels(obj,fields_in,fun,field_out)
 
         scale=get_preamble(obj)
-
+       
     end
     
     methods
   
         function set_auto_scale(obj)
+            
+            for i=1:length(obj.channels)
+                
+                obj.set([':channel',obj.channels(i),':display'],'on');
+                
+            end
             
             obj.set('autoscale')
             
@@ -146,6 +154,26 @@ classdef DSOX6004A < InstrContr.Oscilloscope
         function set_normal_acquire(obj)
             
             obj.set(':acquire:type','norm');
+            
+        end
+        
+        function del=get_phase_delay(obj,sigC,refC)
+            
+            pause(1)
+            
+            del=obj.get(':measure:phase',[' chan',num2str(sigC),',chan',num2str(refC)]);
+            
+        end
+        
+        function del=get_delay(obj,sigC,refC)
+            
+            del=obj.get(':measure:delay',[' chan',num2str(sigC),',chan',num2str(refC)]);
+            
+        end
+        
+        function y=get_last_error(obj)
+            
+            y=obj.get(':system:error?');
             
         end
         

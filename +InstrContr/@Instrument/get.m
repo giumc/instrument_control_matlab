@@ -6,15 +6,21 @@ function y=get(obj,command,varargin)
 
     end
     
-    fprintf(obj.interfObj,[command,varargin{:}]);
+    if ~isempty(varargin)
+        
+        command=strcat(command,varargin{:});
+    
+    end
+    
+    fprintf(obj.interfObj,command);
 
     pause(0.5);
 
-    y=fscanf(obj.interfObj);
+    [y,~,msg]=fscanf(obj.interfObj);
 
     if isempty(y)
         
-        error("command %s had no return",command);
+        error("command %s returned error %s",command,msg);
         
     end
         

@@ -1,20 +1,8 @@
 function plot_screen(obj)
+
+    obj.set_auto_scale;
     
-    chN=[];
-        
-    for i=1:4
-        
-        isactive=obj.get([':channel',num2str(i),':display?']);
-        
-        if isactive
-            
-            chN=[chN,i];
-            
-        end
-        
-    end
-    
-    d=obj.get_channels(chN);
+    d=obj.get_channels(1:4);
     
     fig=gcf;
     

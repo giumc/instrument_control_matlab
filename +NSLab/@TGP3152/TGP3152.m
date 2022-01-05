@@ -15,11 +15,9 @@ classdef TGP3152 < InstrContr.SigGen
             {'MASTER','SLAVE','INDEP'},'LOCKMODE');};
         
         shortcut={InstrContr.Instrument.map_shortcut(...
-            {'m','mode'},'MODE');...
+            {'w','wave','m','mode'},'WAVE');...
             InstrContr.Instrument.map_shortcut(...
             {'f','freq',},'FREQ');...
-            InstrContr.Instrument.map_shortcut(...
-            {'w','width'},'WID');...
             InstrContr.Instrument.map_shortcut(...
             {'dc','d','dutycycle','duty cycle',...
                 'symmetry'},'SYMM');...
@@ -44,6 +42,10 @@ classdef TGP3152 < InstrContr.SigGen
             InstrContr.Instrument.map_shortcut(...
             {'lo','lolvl'},'LOLVL');};
         
+            wave_commands={'FREQ','PER','WID','SYMM','FALLDEL',...
+                'EDGE','EDGESYMM','RISE','RYSESYMM','FALL','FALLSYM',...
+                'DLY','DLYSYMM'};
+        
     end
   
     properties (Access=private)
@@ -51,7 +53,7 @@ classdef TGP3152 < InstrContr.SigGen
         tracking {mustBeMember(tracking,...
             {'OFF','EQUAL','INVERT'})} ='OFF';
        
-        mode {mustBeMember(mode,...
+        wave {mustBeMember(wave,...
             {'PULSE','SQUARE','DOUBLEPULSE','PATTERN',...
             'NOISE','SINE','RAMP','TRIANG'})}='PULSE';
        
@@ -97,9 +99,9 @@ classdef TGP3152 < InstrContr.SigGen
     
     methods (Access=protected)
         
-        function tag=mode_prefix(obj)
+        function tag=wave_prefix(obj)
             
-            switch obj.mode
+            switch obj.wave
                 
                 case 'PULSE'
                     
@@ -116,18 +118,13 @@ classdef TGP3152 < InstrContr.SigGen
             end
             
         end
-        
-    end
-     
-    methods (Access=protected, Static)
-        
-        function tag=mode_command(cmd)
+
+        function tag=wave_command(obj,cmd)
             
-            tag=strcat(obj.mode_prefix,cmd);
+            tag=strcat(obj.wave_prefix,cmd);
             
         end
-        
-        
+ 
     end
      
     

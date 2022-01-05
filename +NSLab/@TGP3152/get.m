@@ -10,12 +10,12 @@ function y=get(obj,comm,varargin)
         
     end
         
-    for i=1:length(obj.shortcuts)
+    for i=1:length(obj.shortcut)
 
-        if ismember(comm,obj.shortcuts{i}.valid_entries) || ...
-                strcmpi(comm,obj.shortcuts{i}.tag)
+        if ismember(comm,obj.shortcut{i}.valid_entries) || ...
+                strcmpi(comm,obj.shortcut{i}.tag)
 
-            mapped_command=[mapped_command;obj.shortcuts{i}];
+            mapped_command=[mapped_command;obj.shortcut{i}];
             
         end
 
@@ -25,7 +25,7 @@ function y=get(obj,comm,varargin)
 
         case 0
 
-            error("Entry %s is mapped to no command!",comm);
+            y=get@InstrContr.Instrument(obj,comm,varargin{:});
 
         case 1
 

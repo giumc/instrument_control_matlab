@@ -1,9 +1,9 @@
 function data = get_channel(obj, channelN)
 
-    pause (1)
+    channelN=obj.format_input(channelN);
     
-    obj.set([':waveform:source ','chan',num2str(channelN)]);
-    
+    obj.set([':waveform:source chan',channelN]);
+ 
     pts=obj.points;
     
     try
@@ -19,13 +19,15 @@ function data = get_channel(obj, channelN)
         warning('waveform:points set to %d',pts);
         
     end
-    
-    obj.set(':digitize');
-       
+
     clipped=1;
 
     while clipped
         
+        obj.set(':digitize');
+        
+        pause(1)
+
         if strcmpi(obj.get(':waveform:format'),'BYTE')
 
             scale=obj.get_preamble;
@@ -66,7 +68,7 @@ function data = get_channel(obj, channelN)
                     obj.get_channel_scale(channelN),...
                     channelN);
 
-                obj.set(':digitize');
+                
 
             else 
 
@@ -81,8 +83,13 @@ function data = get_channel(obj, channelN)
         end
         
     end
-
+    
+    [t,v]=obj.clean_data(t,v);
+    
     data.t=t;
+
     data.v=v;
+    
+    obj.set(':run');
 
 end
