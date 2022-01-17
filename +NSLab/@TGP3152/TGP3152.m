@@ -44,7 +44,7 @@ classdef TGP3152 < InstrContr.SigGen
         
             wave_commands={'FREQ','PER','WID','SYMM','FALLDEL',...
                 'EDGE','EDGESYMM','RISE','RYSESYMM','FALL','FALLSYM',...
-                'DLY','DLYSYMM'};
+                'DLY','DLYSYMM','LOAD','DCOFFS'};
         
     end
   
@@ -55,7 +55,7 @@ classdef TGP3152 < InstrContr.SigGen
        
         wave {mustBeMember(wave,...
             {'PULSE','SQUARE','DOUBLEPULSE','PATTERN',...
-            'NOISE','SINE','RAMP','TRIANG'})}='PULSE';
+            'NOISE','SINE','RAMP','TRIANG','ARB'})}='PULSE';
        
         
     end
@@ -85,6 +85,8 @@ classdef TGP3152 < InstrContr.SigGen
             
             if ~strcmp(obj.get_serial_number,obj.serial_number{n})
                 
+                keyboard;
+                
                 error("Wrong TGP3152 connected");
 
             end
@@ -94,6 +96,30 @@ classdef TGP3152 < InstrContr.SigGen
         set(obj,comm,varargin);
         
         y=get(obj,comm,varargin);
+        
+        set_channel_param(obj,i,varargin);
+        
+        function y=get_last_error(obj)
+            
+            y=obj.get('EER?');
+            
+        end
+        
+        function set_both_channels_param(obj,varargin)
+       
+            if strcmp(obj.tracking,'OFF')
+                
+                obj.set_channel_param(1,varargin{:});
+
+                obj.set_channel_param(2,varargin{:});
+                
+            else
+                
+                obj.set_channel_param(1,varargin{:});
+                
+            end 
+            
+        end
         
     end
     
@@ -110,6 +136,10 @@ classdef TGP3152 < InstrContr.SigGen
                 case 'SQUARE'
                     
                     tag='SQR';
+                    
+                case 'ARB';
+                    
+                    tag='ARB';
                     
                 otherwise
                     
