@@ -12,7 +12,7 @@ classdef Instrument <  handle
         
         builder char;
         
-        timeout=1;
+        timeout=2;
         
     end
     
@@ -53,7 +53,7 @@ classdef Instrument <  handle
             obj.interfObj=instr_obj;
             
             obj.interfObj.Timeout=obj.timeout;
-            
+ 
             obj.reset;
             
         end
@@ -81,8 +81,7 @@ classdef Instrument <  handle
     methods %One liners
        
         function y=id(obj)
-        
-            
+         
             y=obj.get('*IDN');
             
         end 

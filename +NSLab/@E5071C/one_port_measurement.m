@@ -1,5 +1,7 @@
 function [f,s]=one_port_measurement(obj)
 
+    obj.vna.set(':sweep:type','lin');
+    
     obj.start_single_measurement();
     
     [f,s11]=obj.get_sparam(1,1);

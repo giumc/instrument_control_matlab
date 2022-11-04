@@ -37,11 +37,16 @@ classdef E5071C< InstrContr.VNA
             InstrContr.Instrument.map_shortcut(...
             {'pstart','p_start'},':pow:start');...
             InstrContr.Instrument.map_shortcut(...
-            {'pstop','p_stop'},':pow:stop');};
+            {'pstop','p_stop'},':pow:stop');...
+            InstrContr.Instrument.map_shortcut(...
+            {'pswitch','p_turn','turn','switch'},':output:state')};
         
         allowed_values={InstrContr.Instrument.map_allowed_values(...
             {'lin','log','pow'},...
-            ':sweep:type')};
+            ':sweep:type');...
+            InstrContr.Instrument.map_allowed_values(...
+            {'on','off'},...
+            ':out:state')};
         
         modal_commands={...
             InstrContr.Instrument.map_allowed_values(...
@@ -71,6 +76,14 @@ classdef E5071C< InstrContr.VNA
         start_single_measurement(obj);
         
         set(obj,comm,varargin);
+        
+        y=get(obj,comm);
+        
+        function set_meas_display(obj,str)
+           
+            obj.set(strcat(obj.calc_prefix,":par1:def ",str));
+            
+        end
         
         function y=get_last_error(obj)
             
@@ -121,7 +134,7 @@ classdef E5071C< InstrContr.VNA
             y=strcat(':sour',num2str(obj.active_trace));
             
         end
-
+        
     end
     
     methods (Static)
